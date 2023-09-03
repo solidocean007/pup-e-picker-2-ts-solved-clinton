@@ -1,5 +1,4 @@
 export const baseUrl = "http://localhost:3000";
-// import { TNewDog } from "./Functional/FunctionalCreateDogForm";
 import { Dog } from "./types";
 
 const getAllDogs = () => {
