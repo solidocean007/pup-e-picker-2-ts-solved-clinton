@@ -1,3 +1,4 @@
+//types.ts
 import { z } from "zod";
 
 export const dogSchema = z.object({

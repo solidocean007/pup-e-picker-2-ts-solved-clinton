@@ -1,10 +1,53 @@
-import { useState } from "react";
+// CreateDogForm.tsx
+import { useState, useContext } from "react";
+import { DogContext } from "../providers/DogProvider";
 import { dogPictures } from "../dog-pictures";
+import { Dog } from "../types";
 
 export const CreateDogForm = () =>
   // no props allowed
   {
+    const context = useContext(DogContext);
+    // Check if the context is available
+    if (!context) {
+      throw new Error("CreateDogForm must be used within a DogProvider");
+    }
     const [selectedImage, setSelectedImage] = useState(dogPictures.BlueHeeler);
+    const { dogs, setDogs, postDog, isLoading } = context; // none of these are found on type 'TDogProvider'
+
+    const [newDog, setNewDog] = useState<Omit<Dog, "id">>({
+      name: "",
+      image: selectedImage,
+      description: "",
+      isFavorite: false,
+    });
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const { name, value } = e.target;
+      setNewDog((prevData) => ({ ...prevData, [name]: value }));
+    };
+
+    const handleSubmitDog = async () => {
+      // Optimistically update state
+      setDogs(prevDogs => [...prevDogs, newDog]); // Temporary id using Date.now()
+      
+
+      try {
+        // Actual API call
+        const savedDog = await postDog(newDog); // more unsafe type any
+
+        // Update the state with the returned dog data
+        setDogs((prevDogs) => {
+          return [
+            ...prevDogs.filter((dog) => dog.id !== savedDog.id),
+            savedDog,
+          ]; // same
+        });
+      } catch (error) {
+        setDogs((prevDogs) => prevDogs.filter((dog) => dog !== newDog)); // same error
+        alert("Failed to add the dog. Please try again.");
+      }
+    };
 
     return (
       <form
@@ -12,13 +55,27 @@ export const CreateDogForm = () =>
         id="create-dog-form"
         onSubmit={(e) => {
           e.preventDefault();
+          handleSubmitDog();
         }}
       >
         <h4>Create a New Dog</h4>
         <label htmlFor="name">Dog Name</label>
-        <input type="text" />
+        <input
+          type="text"
+          value={newDog.name}
+          onChange={handleInputChange}
+          disabled={isLoading}
+        />
         <label htmlFor="description">Dog Description</label>
-        <textarea name="" id="" cols={80} rows={10}></textarea>
+        <textarea
+          name="description"
+          id="description"
+          value={newDog.description}
+          onChange={handleInputChange}
+          disabled={isLoading}
+          cols={80}
+          rows={10}
+        ></textarea>
         <label htmlFor="picture">Select an Image</label>
         <select
           id=""
