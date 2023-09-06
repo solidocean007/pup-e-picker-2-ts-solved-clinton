@@ -4,6 +4,9 @@ import { DogContext } from "../providers/DogProvider";
 import { dogPictures } from "../dog-pictures";
 import { Dog } from "../types";
 
+export type OptimisticDog = Omit<Dog, 'id'> & { id?: number };
+
+
 export const CreateDogForm = () =>
   // no props allowed
   {
@@ -15,7 +18,7 @@ export const CreateDogForm = () =>
     const [selectedImage, setSelectedImage] = useState(dogPictures.BlueHeeler);
     const { dogs, setDogs, postDog, isLoading } = context; // none of these are found on type 'TDogProvider'
 
-    const [newDog, setNewDog] = useState<Omit<Dog, "id">>({
+    const [newDog, setNewDog] = useState<OptimisticDog>({
       name: "",
       image: selectedImage,
       description: "",
@@ -29,12 +32,12 @@ export const CreateDogForm = () =>
 
     const handleSubmitDog = async () => {
       // Optimistically update state
-      setDogs(prevDogs => [...prevDogs, newDog]); // Temporary id using Date.now()
+      setDogs((prevDogs) => [...prevDogs, newDog]);
       
 
       try {
         // Actual API call
-        const savedDog = await postDog(newDog); // more unsafe type any
+        const savedDog = await postDog(newDog);
 
         // Update the state with the returned dog data
         setDogs((prevDogs) => {
@@ -44,9 +47,18 @@ export const CreateDogForm = () =>
           ]; // same
         });
       } catch (error) {
-        setDogs((prevDogs) => prevDogs.filter((dog) => dog !== newDog)); // same error
+        setDogs((prevDogs) => prevDogs.filter((dog) => dog !== newDog));
         alert("Failed to add the dog. Please try again.");
       }
+    };
+
+    const formReset = () => {
+      setNewDog({
+        name: "",
+        description: "",
+        image: selectedImage,
+        isFavorite: false,
+      });
     };
 
     return (
@@ -55,7 +67,7 @@ export const CreateDogForm = () =>
         id="create-dog-form"
         onSubmit={(e) => {
           e.preventDefault();
-          handleSubmitDog();
+          handleSubmitDog().finally(()=>formReset() );
         }}
       >
         <h4>Create a New Dog</h4>

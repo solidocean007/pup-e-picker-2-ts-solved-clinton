@@ -2,10 +2,11 @@
 import { createContext, ReactNode, useState, useEffect } from "react";
 import { Dog } from "../types";
 import { Requests } from "../api";
+import { OptimisticDog } from "../Components/CreateDogForm";
 
 type TDogProvider = {
   dogs: Dog[];
-  setDogs: React.Dispatch<React.SetStateAction<Dog[]>>;
+  setDogs: React.Dispatch<React.SetStateAction<Dog[] | OptimisticDog[]>>;
   isLoading: boolean;
   postDog: (dog: Omit<Dog, 'id'>) => Promise<Dog>;
   deleteDogRequest: (id: number) => Promise<Response>;
