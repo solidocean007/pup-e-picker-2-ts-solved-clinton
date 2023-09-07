@@ -1,7 +1,9 @@
 import { Section } from "./Components/Section";
 import { DogProvider } from "./Providers/DogProvider";
+import React, { useState } from 'react';
 
-type TypeOfView = { 'showAllDogs' | 'showFavoriteDogs' | 'showUnfavoriteDogs' | 'showCreateDog'}
+
+type TypeOfView = 'showAllDogs' | 'showFavoriteDogs' | 'showUnfavoriteDogs' | 'showCreateDog';
 
 export function App() {
   const [view, setView]= useState<TypeOfView>('showAllDogs')
@@ -12,7 +14,22 @@ export function App() {
         <h1>pup-e-picker (Functional)</h1>
       </header>
       <Section label={"Dogs: "}>
-        {/*switch statement to show different views*/}
+        
+
+switch (view) {
+  case "showAllDogs":
+    console.log("It's Monday!");
+    break;
+  case "showFavoriteDogs":
+    console.log("It's Tuesday!");
+    break;
+  case "showUnfavoriteDogs":
+    console.log("It's Wednesday!");
+    break;
+  case "showCreateDog":
+    console.log("It's Wednesday!");
+    break;
+}
       </Section>
     </div>
     </DogProvider>

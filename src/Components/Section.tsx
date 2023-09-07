@@ -1,3 +1,4 @@
+//section.tsx
 import { ReactNode } from "react";
 
 export const Section = ({
