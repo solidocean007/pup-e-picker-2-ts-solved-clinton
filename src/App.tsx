@@ -1,12 +1,28 @@
 import { Section } from "./Components/Section";
-import { DogProvider } from "./Providers/DogProvider";
-import React, { useState } from 'react';
+import { DogProvider } from "./providers/DogProvider";
+import { useState } from 'react';
 
 
-type TypeOfView = 'showAllDogs' | 'showFavoriteDogs' | 'showUnfavoriteDogs' | 'showCreateDog';
+
 
 export function App() {
   const [view, setView]= useState<TypeOfView>('showAllDogs')
+
+  const renderContent = () => {
+    switch (view) {
+      case "showAllDogs":
+        return <AllDogsComponent />;
+      case "showFavoriteDogs":
+        return <FavoriteDogsComponent />;
+      case "showUnfavoriteDogs":
+        return <UnfavoriteDogsComponent />;
+      case "showCreateDog":
+        return <CreateDogFormComponent />;
+      default:
+        return <div>Invalid view</div>;
+    }
+  };
+
   return (
     <DogProvider>
       <div className="App" style={{ backgroundColor: "skyblue" }}>
@@ -14,23 +30,8 @@ export function App() {
         <h1>pup-e-picker (Functional)</h1>
       </header>
       <Section label={"Dogs: "}>
-        
-
-switch (view) {
-  case "showAllDogs":
-    console.log("It's Monday!");
-    break;
-  case "showFavoriteDogs":
-    console.log("It's Tuesday!");
-    break;
-  case "showUnfavoriteDogs":
-    console.log("It's Wednesday!");
-    break;
-  case "showCreateDog":
-    console.log("It's Wednesday!");
-    break;
-}
-      </Section>
+          {renderContent()}
+        </Section>
     </div>
     </DogProvider>
   );
