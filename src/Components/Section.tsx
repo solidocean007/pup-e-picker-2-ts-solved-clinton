@@ -1,43 +1,44 @@
-//section.tsx
-import { ReactNode } from "react";
+import { ReactNode, useContext } from "react";
+import { DogContext } from "../providers/DogProvider";
+import { TypeOfView } from "../providers/DogProvider";
 
 export const Section = ({
   label,
   children,
 }: {
-  // No more props than these two allowed
-  label: string;
+  label: string; 
   children: ReactNode;
 }) => {
+  const { dogs, view, setView } = useContext(DogContext); 
+
+  const handleButtonClick = (newView: TypeOfView) => {
+    if (newView === view) {
+      setView('showAllDogs');
+    } else {
+      setView(newView);
+    }
+  };
+
   return (
     <section id="main-section">
       <div className="container-header">
         <div className="container-label">{label}</div>
         <div className="selectors">
-          {/* This should display the favorited count */}
           <div
             className={`selector ${"active"}`}
-            onClick={() => {
-              alert("click favorited");
-            }}
+            onClick={() => handleButtonClick('showFavoriteDogs')}
           >
-            favorited ( {0} )
-          </div>
-
-          {/* This should display the unfavorited count */}
-          <div
-            className={`selector ${""}`}
-            onClick={() => {
-              alert("click unfavorited");
-            }}
-          >
-            unfavorited ( {10} )
+            favorited ( {dogs.reduce((acc, curr) => acc + (curr.isFavorite ? 1 : 0), 0)} )
           </div>
           <div
             className={`selector ${""}`}
-            onClick={() => {
-              alert("clicked create dog");
-            }}
+            onClick={() => handleButtonClick('showUnfavoriteDogs')}
+          >
+            unfavorited ( {dogs.reduce((acc, curr) => acc + (!curr.isFavorite ? 1 : 0), 0)} )
+          </div>
+          <div
+            className={`selector ${""}`}
+            onClick={() => handleButtonClick('showCreateDog')}
           >
             create dog
           </div>
@@ -47,3 +48,4 @@ export const Section = ({
     </section>
   );
 };
+

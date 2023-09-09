@@ -8,14 +8,13 @@ export const Dogs = () =>
   // no props allowed
   {
     const context = useContext(DogContext);
-    console.log(context, 'context')
     const {dogs} = context;
 
     return (
       //  the "<> </>"" are called react fragments, it's like adding all the html inside
       // without adding an actual html element
-      <>{dogs.map((dog)=>(
-        <DogCard dog={dog} />
+      <>{dogs.map((dog, index)=>(
+        <DogCard key={index} dog={dog} />
       ))}</>
     );
   };
