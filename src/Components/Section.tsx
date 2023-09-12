@@ -6,22 +6,22 @@ export const Section = ({
   label,
   children,
 }: {
-  label: string; 
+  label: string;
   children: ReactNode;
 }) => {
-  const context = useContext(DogContext)!
-  const { dogs, view, setView, totalFavoriteCount, totalUnfavoriteCount } = context; 
+  const context = useContext(DogContext)!;
+  const { dogs, view, setView, totalFavoriteCount, totalUnfavoriteCount } =
+    context;
 
   const handleButtonClick = (newView: TypeOfView) => {
     if (newView === view) {
-      setView('showAllDogs');
+      setView("showAllDogs");
     } else {
       setView(newView);
     }
   };
 
-  console.log('Dogs Array:', dogs);
-
+  console.log("Dogs Array:", dogs);
 
   return (
     <section id="main-section">
@@ -30,21 +30,19 @@ export const Section = ({
         <div className="selectors">
           <div
             className={`selector ${"active"}`}
-            onClick={() => handleButtonClick('showFavoriteDogs')}
+            onClick={() => handleButtonClick("showFavoriteDogs")}
           >
             favorited ( {totalFavoriteCount} )
-
           </div>
           <div
             className={`selector ${""}`}
-            onClick={() => handleButtonClick('showUnfavoriteDogs')}
+            onClick={() => handleButtonClick("showUnfavoriteDogs")}
           >
             unfavorited ( {totalUnfavoriteCount} )
-
           </div>
           <div
             className={`selector ${""}`}
-            onClick={() => handleButtonClick('showCreateDog')}
+            onClick={() => handleButtonClick("showCreateDog")}
           >
             create dog
           </div>

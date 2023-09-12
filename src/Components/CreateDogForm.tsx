@@ -5,8 +5,7 @@ import { dogPictures } from "../dog-pictures";
 import { Dog } from "../types";
 import { toast } from "react-hot-toast";
 
-export type OptimisticDog = Omit<Dog, 'id'> & { id?: number };
-
+export type OptimisticDog = Omit<Dog, "id"> & { id?: number };
 
 export const CreateDogForm = () =>
   // no props allowed
@@ -26,41 +25,41 @@ export const CreateDogForm = () =>
       isFavorite: false,
     });
 
-    const validEntry = newDog.name.length > 0 && newDog.description.length >0;
+    const validEntry = newDog.name.length > 0 && newDog.description.length > 0;
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const { name, value } = e.target;
       setNewDog((prevData) => ({ ...prevData, [name]: value }));
     };
 
-    const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const handleTextareaChange = (
+      e: React.ChangeEvent<HTMLTextAreaElement>
+    ) => {
       const { name, value } = e.target;
       setNewDog((prevData) => ({ ...prevData, [name]: value }));
     };
 
     const handleSubmitDog = async () => {
       // Optimistically update state
-      setDogs((prevDogs) => [...prevDogs, newDog as Dog]); 
-    
+      setDogs((prevDogs) => [...prevDogs, newDog as Dog]);
+
       try {
         // Actual API call
         const savedDog = await postDog(newDog);
-    
+
         // Update the state with the returned dog data
         setDogs((prevDogs) => {
-          const filteredDogs = prevDogs.filter(dog => dog !== newDog); // remove optimistic dog
+          const filteredDogs = prevDogs.filter((dog) => dog !== newDog); // remove optimistic dog
           return [...filteredDogs, savedDog]; // add saved dog
-          
         });
         toast.success(`Created dog named ${newDog.name}`);
-        
+
         // setView('showAllDogs');
       } catch (error) {
         setDogs((prevDogs) => prevDogs.filter((dog) => dog !== newDog));
         toast.error("Failed to add the dog. Please try again.");
       }
     };
-    
 
     const formReset = () => {
       setNewDog({
@@ -77,7 +76,11 @@ export const CreateDogForm = () =>
         id="create-dog-form"
         onSubmit={(e) => {
           e.preventDefault();
-          {validEntry ? handleSubmitDog().finally(()=>formReset() ):  toast.error('Please fill out both the name and description.');}
+          {
+            validEntry
+              ? handleSubmitDog().finally(() => formReset())
+              : toast.error("Please fill out both the name and description.");
+          }
         }}
       >
         <h4>Create a New Dog</h4>

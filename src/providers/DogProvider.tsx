@@ -40,7 +40,7 @@ export const DogProvider = ({ children }: DogProviderProps) => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const response: Dog[] = await Requests.getAllDogs(); // I need to get my api function to return Promise<Dog[]>.  this still has an error
+        const response: Dog[] = await Requests.getAllDogs();
 
         setDogs(response);
         setTotalFavoriteCount(response.filter((d) => d.isFavorite).length);
