@@ -1,1 +1,18 @@
-{"dogs":[{"name":"Brenna","image":"/public/assets/chihuahua.avif","description":"for Reggae Exclusive South Diesel","isFavorite":false,"id":0},{"name":"Alena","image":"/public/assets/boxer.png","description":"Southeast South hack Gorgeous SQL","isFavorite":false,"id":1},{"name":"Shea","image":"/public/assets/corgi.png","description":"East deposit secondary olive Assistant someplace yawning","isFavorite":true,"id":2},{"name":"Bernhard","image":"/public/assets/blue-heeler.png","description":"Gasoline ducimus temporise Augustine extensible until Music Garden","isFavorite":true,"id":3},{"name":"Bryce","image":"/public/assets/blue-heeler.png","description":"Chair Strontium Usability unto questioning","isFavorite":true,"id":4},{"name":"Gunnar","image":"/public/assets/dalmation.png","description":"Korea concept Avon East blue burly Consultant Bicycle","isFavorite":true,"id":5},{"name":"Conor","image":"/public/assets/chihuahua.avif","description":"Buckinghamshire Specialist towards gold customized male Plastic Sudan","isFavorite":false,"id":6},{"name":"Melvin","image":"/public/assets/boxer.png","description":"Luxurious Rhode Global Hybrid teal personal Keyboard primary","isFavorite":true,"id":7},{"name":"Eugenia","image":"/public/assets/chihuahua.avif","description":"Beauty solid Supervisor Hybrid Moldova Mouse Dollar hacking","isFavorite":false,"id":8},{"name":"Bruce","image":"/public/assets/corgi.png","description":"Vietnam sensor panel Bedfordshire Gasoline Bike Bacon across","isFavorite":false,"id":9},{"name":"Bernhard","image":"/public/assets/blue-heeler.png","description":"Soft Chips Brazilian party Pop Soft Taiwan Cotton","isFavorite":false,"id":10},{"name":"Bianka","image":"/public/assets/corgi.png","description":"Dakota where Utah markets Shirt","isFavorite":true,"id":11},{"name":"Wilfrid","image":"/public/assets/cowardly.png","description":"incidentally generate Cordoba Interface olive area phew embrace","isFavorite":false,"id":12},{"name":"Garnet","image":"/public/assets/dalmation.png","description":"Avon Executive Awesome primary North","isFavorite":false,"id":13},{"name":"Elaina","image":"/public/assets/blue-heeler.png","description":"ah Jazz Gasoline Tobago Loan Credit ubiquitous Landing","isFavorite":true,"id":14},{"name":"Candace","image":"/public/assets/blue-heeler.png","description":"politely Cambridgeshire Producer plum Northwest","isFavorite":false,"id":15},{"name":"Shania","image":"/public/assets/cowardly.png","description":"Northwest Research microchip possimus Pennsylvania bypassing Jerald","isFavorite":false,"id":16},{"name":"Molly","image":"/public/assets/corgi.png","description":"channels Bronze Recycled OCR benchmark very recusandae","isFavorite":true,"id":17},{"name":"Tressa","image":"/public/assets/boxer.png","description":"Electric mole capacitor male Oriental Trigender Electronics","isFavorite":false,"id":18},{"name":"Ignatius","image":"/public/assets/dalmation.png","description":"Electronic Northwest how Shirt Bike Electric black Smart","isFavorite":true,"id":19}]}
+{
+  "dogs": [
+    {
+      "name": "night",
+      "image": "/assets/boxer.jpeg",
+      "description": "you",
+      "isFavorite": false,
+      "id": 1
+    },
+    {
+      "name": "newdog",
+      "image": "/assets/boxer.jpeg",
+      "description": "here he is",
+      "isFavorite": false,
+      "id": 2
+    }
+  ]
+}
