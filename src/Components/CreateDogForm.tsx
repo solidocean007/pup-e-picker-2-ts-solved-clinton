@@ -15,8 +15,8 @@ export const CreateDogForm = () =>
     if (!context) {
       throw new Error("CreateDogForm must be used within a DogProvider");
     }
-    const [selectedImage, setSelectedImage] = useState(dogPictures.BlueHeeler);
-    const { dogs, setDogs, postDog, isLoading } = context; // none of these are found on type 'TDogProvider'
+    const [selectedImage, setSelectedImage] = useState(dogPictures.Boxer);
+    const { setDogs, postDog, isLoading, setView } = context;
 
     const [newDog, setNewDog] = useState<OptimisticDog>({
       name: "",
@@ -30,27 +30,32 @@ export const CreateDogForm = () =>
       setNewDog((prevData) => ({ ...prevData, [name]: value }));
     };
 
+    const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      const { name, value } = e.target;
+      setNewDog((prevData) => ({ ...prevData, [name]: value }));
+    };
+
     const handleSubmitDog = async () => {
       // Optimistically update state
-      setDogs((prevDogs) => [...prevDogs, newDog]);
-      
-
+      setDogs((prevDogs) => [...prevDogs, newDog as Dog]); 
+    
       try {
         // Actual API call
         const savedDog = await postDog(newDog);
-
+    
         // Update the state with the returned dog data
         setDogs((prevDogs) => {
-          return [
-            ...prevDogs.filter((dog) => dog.id !== savedDog.id),
-            savedDog,
-          ]; // same
+          const filteredDogs = prevDogs.filter(dog => dog !== newDog); // remove optimistic dog
+          return [...filteredDogs, savedDog]; // add saved dog
         });
+    
+        setView('showAllDogs');
       } catch (error) {
         setDogs((prevDogs) => prevDogs.filter((dog) => dog !== newDog));
         alert("Failed to add the dog. Please try again.");
       }
     };
+    
 
     const formReset = () => {
       setNewDog({
@@ -73,6 +78,7 @@ export const CreateDogForm = () =>
         <h4>Create a New Dog</h4>
         <label htmlFor="name">Dog Name</label>
         <input
+          name="name"
           type="text"
           value={newDog.name}
           onChange={handleInputChange}
@@ -83,7 +89,7 @@ export const CreateDogForm = () =>
           name="description"
           id="description"
           value={newDog.description}
-          onChange={handleInputChange}
+          onChange={handleTextareaChange}
           disabled={isLoading}
           cols={80}
           rows={10}

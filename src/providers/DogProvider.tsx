@@ -2,16 +2,19 @@
 import { createContext, useState, useEffect, ReactNode } from "react";
 import { Dog } from "../types";
 import { Requests } from "../api";
-import { OptimisticDog } from "../Components/CreateDogForm";
 
 type TDogProvider = {
   dogs: Dog[];
   setView: React.Dispatch<React.SetStateAction<TypeOfView>>;
-  setDogs: React.Dispatch<React.SetStateAction<Dog[] | OptimisticDog[]>>;
+  view: TypeOfView;
+  setDogs: React.Dispatch<React.SetStateAction<Dog[]>>;
   isLoading: boolean;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   postDog: (dog: Omit<Dog, "id">) => Promise<Dog>;
   deleteDogRequest: (id: number) => Promise<Response>;
   patchFavoriteForDog: (id: number, updatedDog: Dog) => Promise<Dog>;
+  totalFavoriteCount: number;
+  totalUnfavoriteCount: number;
 };
 
 export type TypeOfView =
@@ -24,26 +27,31 @@ type DogProviderProps = {
   children: ReactNode;
 };
 
-export const DogContext = createContext<TDogProvider | undefined>(undefined);
+export const DogContext = createContext<TDogProvider | undefined>(undefined); // does this have to be undefined?
 
-export const DogProvider = ({ children }: { children: DogProviderProps }) => {
+export const DogProvider = ({ children }: DogProviderProps) => {
   const [dogs, setDogs] = useState<Dog[]>([]);
   const [view, setView] = useState<TypeOfView>("showAllDogs");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [totalFavoriteCount, setTotalFavoriteCount] = useState(0);
+  const [totalUnfavoriteCount, setTotalUnfavoriteCount] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const response = await Requests.getAllDogs(); //unsafe assingment of any value
-        setDogs(response); // unsafe argument of type any
+        const response: Dog[] = await Requests.getAllDogs(); // I need to get my api function to return Promise<Dog[]>.  this still has an error
+
+        setDogs(response);
+        setTotalFavoriteCount(response.filter((d) => d.isFavorite).length);
+        setTotalUnfavoriteCount(response.filter((d) => !d.isFavorite).length);
       } catch (error) {
         console.error("An error occurred while fetching data: ", error);
       } finally {
         setIsLoading(false);
       }
     };
-    fetchData(); // Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator
+    fetchData().catch((error) => console.error(error));
   }, []);
 
   const filteredDogs = () => {
@@ -59,12 +67,25 @@ export const DogProvider = ({ children }: { children: DogProviderProps }) => {
     }
   };
 
+  const { postDog, deleteDogRequest, patchFavoriteForDog } = Requests;
 
   return (
-    <DogContext.Provider value={{ dogs: filteredDogs(), setView }}>
+    <DogContext.Provider
+      value={{
+        dogs: filteredDogs(),
+        setView,
+        view,
+        setDogs, // type mismatch
+        isLoading,
+        setIsLoading,
+        postDog,
+        deleteDogRequest,
+        patchFavoriteForDog,
+        totalFavoriteCount,
+        totalUnfavoriteCount,
+      }}
+    >
       {children}
-      {/*Type 'DogProviderProps' is not assignable to type 'ReactNode'.
-  Type 'DogProviderProps' is missing the following properties from type 'ReactPortal': key, type, props*/}
     </DogContext.Provider>
   );
 };
