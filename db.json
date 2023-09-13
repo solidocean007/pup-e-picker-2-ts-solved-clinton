@@ -1,18 +1,53 @@
 {
   "dogs": [
     {
-      "name": "night",
-      "image": "/assets/boxer.jpeg",
-      "description": "you",
-      "isFavorite": false,
-      "id": 1
-    },
-    {
-      "name": "newdog",
-      "image": "/assets/boxer.jpeg",
-      "description": "here he is",
+      "name": "Verona",
+      "image": "/public/assets/cowardly.png",
+      "description": "Reggae male Concrete payment ampere Producer Plastic",
       "isFavorite": false,
       "id": 2
+    },
+    {
+      "name": "Devin",
+      "image": "/public/assets/blue-heeler.png",
+      "description": "orange Bicycle Chrysler Michigan Bicycle Cotton Hybrid EXE",
+      "isFavorite": false,
+      "id": 3
+    },
+    {
+      "name": "Fidel",
+      "image": "/public/assets/blue-heeler.png",
+      "description": "Cheese online Ball Computer portals Electric Modern",
+      "isFavorite": true,
+      "id": 16
+    },
+    {
+      "name": "Natalie",
+      "image": "/public/assets/boxer.png",
+      "description": "open Hybrid Mauritania payment navigate",
+      "isFavorite": true,
+      "id": 17
+    },
+    {
+      "name": "Frederique",
+      "image": "/public/assets/boxer.png",
+      "description": "Toys Dynamic South Canadian siemens",
+      "isFavorite": true,
+      "id": 18
+    },
+    {
+      "name": "Maybelle",
+      "image": "/public/assets/cowardly.png",
+      "description": "Azerbaijanian copying male paradigms Bedfordshire",
+      "isFavorite": true,
+      "id": 19
+    },
+    {
+      "name": "ddd",
+      "image": "/assets/boxer.jpeg",
+      "description": "ddd",
+      "isFavorite": false,
+      "id": 20
     }
   ]
 }

@@ -1,22 +1,17 @@
 // CreateDogForm.tsx
-import { useState, useContext } from "react";
-import { DogContext } from "../providers/DogProvider";
+import { useState } from "react";
 import { dogPictures } from "../dog-pictures";
 import { Dog } from "../types";
 import { toast } from "react-hot-toast";
+import { useDogs } from "../Providers/useDogs";
 
 export type OptimisticDog = Omit<Dog, "id"> & { id?: number };
 
 export const CreateDogForm = () =>
   // no props allowed
   {
-    const context = useContext(DogContext);
-    // Check if the context is available
-    if (!context) {
-      throw new Error("CreateDogForm must be used within a DogProvider");
-    }
     const [selectedImage, setSelectedImage] = useState(dogPictures.Boxer);
-    const { setDogs, postDog, isLoading } = context;
+    const { setDogs, postDog, isLoading } = useDogs();
 
     const [newDog, setNewDog] = useState<OptimisticDog>({
       name: "",

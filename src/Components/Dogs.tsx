@@ -1,20 +1,33 @@
 // Right now these dogs are constant, but in reality we should be getting these from our server
 // Todo: Refactor to get rid of props (THERE SHOULD BE NO PROPS DRILLING ON THIS COMPONENT)
-import { useContext } from "react";
-import { DogContext } from "../providers/DogProvider";
 import { DogCard } from "./DogCard";
 import { Dog } from "../types";
+import { useDogs } from "../Providers/useDogs";
 
 export const Dogs = () => {
-  const context = useContext(DogContext);
-  const { dogs, setDogs, setIsLoading, deleteDogRequest, patchFavoriteForDog } =
-    context!;
+  const { dogs, setDogs, view, setIsLoading, deleteDogRequest, patchFavoriteForDog } =
+    useDogs();
+
+    const filteredDogs = () => {
+      switch (view) {
+        case "showAllDogs":
+          return dogs;
+        case "showFavoriteDogs":
+          return dogs.filter((dog) => dog.isFavorite);
+        case "showUnfavoriteDogs":
+          return dogs.filter((dog) => !dog.isFavorite);
+        default:
+          return dogs;
+      }
+    };
+
+    const dogsToDisplay = filteredDogs();
 
   return (
     //  the "<> </>"" are called react fragments, it's like adding all the html inside
     // without adding an actual html element
     <>
-      {dogs.map((dog: Dog, index: number) => (
+      {dogsToDisplay.map((dog: Dog, index: number) => (
         <DogCard
           dog={dog}
           key={index}

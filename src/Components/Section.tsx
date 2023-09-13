@@ -1,6 +1,6 @@
-import { ReactNode, useContext } from "react";
-import { DogContext } from "../providers/DogProvider";
-import { TypeOfView } from "../providers/DogProvider";
+import { ReactNode } from "react";
+import { TypeOfView } from "../Providers/DogProvider";
+import { useDogs } from "../Providers/useDogs";
 
 export const Section = ({
   label,
@@ -9,9 +9,10 @@ export const Section = ({
   label: string;
   children: ReactNode;
 }) => {
-  const context = useContext(DogContext)!;
-  const { dogs, view, setView, totalFavoriteCount, totalUnfavoriteCount } =
-    context;
+  const { dogs, setDogs, view, setView } =
+    useDogs();
+    const totalFavoriteCount = dogs.reduce((acc, dog) => acc + (dog.isFavorite ? 1 : 0), 0);
+    const totalUnfavoriteCount = dogs.length - totalFavoriteCount;
 
   const handleButtonClick = (newView: TypeOfView) => {
     if (newView === view) {
@@ -29,19 +30,19 @@ export const Section = ({
         <div className="container-label">{label}</div>
         <div className="selectors">
           <div
-            className={`selector ${"active"}`}
+            className={`selector ${view === "showFavoriteDogs" ? "active" : ''}`}
             onClick={() => handleButtonClick("showFavoriteDogs")}
           >
             favorited ( {totalFavoriteCount} )
           </div>
           <div
-            className={`selector ${""}`}
+            className={`selector ${view === "showUnfavoriteDogs" ? "active" : ''}`}
             onClick={() => handleButtonClick("showUnfavoriteDogs")}
           >
             unfavorited ( {totalUnfavoriteCount} )
           </div>
           <div
-            className={`selector ${""}`}
+            className={`selector ${view === "showCreateDog" ? "active" : ''}`}
             onClick={() => handleButtonClick("showCreateDog")}
           >
             create dog
