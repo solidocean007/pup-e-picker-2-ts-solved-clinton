@@ -1,11 +1,10 @@
 import { CreateDogForm } from "./Components/CreateDogForm";
 import { Section } from "./Components/Section";
-import { DogContext } from "./providers/DogProvider";
-import { useContext } from "react";
 import { Dogs } from "./Components/Dogs";
+import { useDogs } from "./Providers/useDogs";
 
 export function App() {
-  const { view } = useContext(DogContext)!;
+  const { view } = useDogs();
 
   return (
     <div className="App" style={{ backgroundColor: "skyblue" }}>
