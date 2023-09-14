@@ -9,7 +9,7 @@ export const Section = ({
   label: string;
   children: ReactNode;
 }) => {
-  const { dogs, setDogs, view, setView } =
+  const { dogs,view, setView } =
     useDogs();
     const totalFavoriteCount = dogs.reduce((acc, dog) => acc + (dog.isFavorite ? 1 : 0), 0);
     const totalUnfavoriteCount = dogs.length - totalFavoriteCount;
@@ -21,8 +21,6 @@ export const Section = ({
       setView(newView);
     }
   };
-
-  console.log("Dogs Array:", dogs);
 
   return (
     <section id="main-section">

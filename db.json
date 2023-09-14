@@ -1,52 +1,31 @@
 {
   "dogs": [
     {
-      "name": "Verona",
-      "image": "/public/assets/cowardly.png",
-      "description": "Reggae male Concrete payment ampere Producer Plastic",
-      "isFavorite": false,
-      "id": 2
-    },
-    {
-      "name": "Devin",
-      "image": "/public/assets/blue-heeler.png",
-      "description": "orange Bicycle Chrysler Michigan Bicycle Cotton Hybrid EXE",
-      "isFavorite": false,
-      "id": 3
-    },
-    {
-      "name": "Fidel",
-      "image": "/public/assets/blue-heeler.png",
-      "description": "Cheese online Ball Computer portals Electric Modern",
-      "isFavorite": true,
-      "id": 16
-    },
-    {
-      "name": "Natalie",
-      "image": "/public/assets/boxer.png",
-      "description": "open Hybrid Mauritania payment navigate",
+      "name": "Reymundo",
+      "image": "/public/assets/corgi.png",
+      "description": "Jersey Supervisor Chair Arizona beneath engage Texas",
       "isFavorite": true,
       "id": 17
     },
     {
-      "name": "Frederique",
+      "name": "Ariane",
       "image": "/public/assets/boxer.png",
-      "description": "Toys Dynamic South Canadian siemens",
+      "description": "for Chrysler Bicycle watt Bicycle Architect Diesel Northeast",
       "isFavorite": true,
       "id": 18
     },
     {
-      "name": "Maybelle",
+      "name": "Geraldine",
       "image": "/public/assets/cowardly.png",
-      "description": "Azerbaijanian copying male paradigms Bedfordshire",
+      "description": "culpa program Beauty volt integrated Ford District",
       "isFavorite": true,
       "id": 19
     },
     {
-      "name": "ddd",
+      "name": "asf",
       "image": "/assets/boxer.jpeg",
-      "description": "ddd",
-      "isFavorite": false,
+      "description": "afasdf",
+      "isFavorite": true,
       "id": 20
     }
   ]

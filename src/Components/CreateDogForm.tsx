@@ -11,7 +11,7 @@ export const CreateDogForm = () =>
   // no props allowed
   {
     const [selectedImage, setSelectedImage] = useState(dogPictures.Boxer);
-    const { setDogs, postDog, isLoading } = useDogs();
+    const { createDog, isLoading } = useDogs();
 
     const [newDog, setNewDog] = useState<OptimisticDog>({
       name: "",
@@ -34,28 +34,6 @@ export const CreateDogForm = () =>
       setNewDog((prevData) => ({ ...prevData, [name]: value }));
     };
 
-    const handleSubmitDog = async () => {
-      // Optimistically update state
-      setDogs((prevDogs) => [...prevDogs, newDog as Dog]);
-
-      try {
-        // Actual API call
-        const savedDog = await postDog(newDog);
-
-        // Update the state with the returned dog data
-        setDogs((prevDogs) => {
-          const filteredDogs = prevDogs.filter((dog) => dog !== newDog); // remove optimistic dog
-          return [...filteredDogs, savedDog]; // add saved dog
-        });
-        toast.success(`Created dog named ${newDog.name}`);
-
-        // setView('showAllDogs');
-      } catch (error) {
-        setDogs((prevDogs) => prevDogs.filter((dog) => dog !== newDog));
-        toast.error("Failed to add the dog. Please try again.");
-      }
-    };
-
     const formReset = () => {
       setNewDog({
         name: "",
@@ -71,11 +49,16 @@ export const CreateDogForm = () =>
         id="create-dog-form"
         onSubmit={(e) => {
           e.preventDefault();
-          {
-            validEntry
-              ? handleSubmitDog().finally(() => formReset())
-              : toast.error("Please fill out both the name and description.");
+          if (!validEntry) {
+            toast.error("Invalid Entry");
+            return;
           }
+          createDog({ ...newDog })
+            .then(() => {
+              toast.success("Created a dog!");
+              formReset();
+            })
+            .catch(() => toast.error("Something went wrong."));
         }}
       >
         <h4>Create a New Dog</h4>
